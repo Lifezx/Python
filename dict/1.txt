@@ -1,0 +1,91 @@
+在线词典
+
+1.确定技术点
+
+    并发模型和网络模型
+        多进程tcp并发模型
+
+    确定细节功能，注册要注册什么，注册后是否直接登录
+        注册:用户名密码，加密存储，注册后直接登陆
+        历史记录:最近的前十个
+
+    一级界面，二级界面如何切换
+
+
+
+2.mysql数据库设计 dict
+
+    words : id word mean
+
+    user  : id name password
+    create table user (id int primary key auto-increment,
+    name varchar(32) not null,password char(128) not null);
+
+    history : id name word time
+    create table history (id int primary key auto_increment,
+    name varchar(32) not null,word varchar(32) not null,
+    time datetime default now());
+
+3.结构设计，功能模块划分
+
+    如何封装，客户端和服务端工作流程，有几个功能模块
+
+    * 函数封装
+    * 功能模块:通信，登陆，注册，查询，历史记录
+
+4.通信搭建
+
+5.  登录，注册
+    查询，历史记录
+
+    注册：
+        客户端：输入用户名密码
+               发送请求
+               接收反馈
+
+        服务端：接收请求，判断请求类型
+               判定用户能否注册
+               给客户端反馈
+
+    登录：
+        客户端： 输入用户名密码
+                发送请求
+                等待反馈
+        服务端： 接受请求
+                验证信息
+                发送结果
+
+    查询：
+        客户端： 输入单词
+                发送请求（套接字）
+                接受结果
+        服务端： 接受请求
+                查找单词
+                插入历史记录
+                发送给客户端
+
+    历史记录：
+
+
+协议： 登录 L
+      注册 R
+      查单词 S
+      历史记录 H
+      退出 Q
+
+cookie:
+    import getpass 输入密码时隐藏，不能在Pycharm使用
+    pwd = getpass.getpass()
+    功能 :隐藏输入密码
+
+    import hashlib
+    hash = hashlib.md5()
+    功能: 生成md5对象
+    参数： 盐(自定义的字节串)
+
+    hash.update(password.encode())
+    功能：进行加密处理
+    参数：密码转换为字节串
+
+    new_passwd = hash.hexdigest()
+    功能：得到转换后的密码
