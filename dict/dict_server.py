@@ -45,7 +45,6 @@ def login(connfd,name,password):
     if user.login(name,password):
         connfd.send(b'ok')
 
-
 def seek_word(connfd,word,name):
     mean = user.seek_word(word,name)
     if not mean:

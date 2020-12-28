@@ -86,6 +86,7 @@ def do_register():
             return
         else:
             print('注册失败')
+
 def do_seek_word(name):
     while True:
         print('=====查找单词=====')

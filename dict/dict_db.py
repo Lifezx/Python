@@ -18,7 +18,6 @@ class User:
         self.db = pymysql.connect(user='root', passwd='root',
                                   database=database, charset='utf8')
 
-
     # 创建游标对象
     def create_cursor(self):
         self.cur = self.db.cursor()
@@ -42,7 +41,6 @@ class User:
                 self.db.rollback()
             return True
 
-
     def login(self,name,password):
         sql = "select * from user where name = %s and password = %s"
         password = md5(password)  # 加密处理
@@ -55,7 +53,7 @@ class User:
         else:
             return False
 
-    def seek_word(self,word,name):
+    def seek_word(self,word):
         sql = "select mean from words where word = %s"
         self.cur.execute(sql,[word])
         r = self.cur.fetchone()
@@ -70,7 +68,6 @@ class User:
             self.db.commit()
         except:
             self.db.rollback()
-
 
     def history(self,name):
         sql = "select name,word,time from history where name = %s order by time desc"
